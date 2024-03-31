@@ -34,30 +34,20 @@
 }
 
 #footer {
-    background-color: rgb(233, 227, 227);
     text-align: center;
 }
 
 .about-text{
     text-decoration: underline;
     text-align: center;
+    position: relative;
 }
 
-.hr { 
-    display: block;
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
-    margin-left: auto;
-    margin-right: auto;
-    border-style: inset;
-    border-width: 1px;
-    border-color: rgb(233, 227, 227);
-}
 
 .imageAboutPage {
     width: 100%;
     border-radius: 50%;
-}
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;}
 
 .bgimage-cv {
     background-image: url('images/homeimg.jpg'); 
@@ -71,9 +61,7 @@
     font-family: "Work Sans", sans-serif;
 }
 
-.technicalskills{
     
-}
 .progress{
     background-color: white;
     justify-content: flex-start;
@@ -205,7 +193,7 @@ span{
     font-style: oblique;
 }
 
-.accordion-header, .accordion-button, .accordion-body, .about-text, .about-paragraph, .hero_title, .hero_desc, .nav-link, .navbar-brand {
+.accordion-header, .accordion-button, .accordion-body, .about-text, .about-paragraph, .hero_title, .hero_desc, .nav-link, .navbar-brand, .project-header, h3{
     font-family: "Work Sans", sans-serif;
     font-optical-sizing: auto;
 }
@@ -227,4 +215,88 @@ span{
     margin-left: -30px; 
 }
 
+.courses-text{
+
+}
+
+#about{
+    margin-top: -50px;
+    margin-bottom: -20px;
+}
+
+.about-paragraph{
+    font-size: large;
+    margin-top: -30px;
+}
+
+.imageAboutPage{
+    margin-bottom: 20px;
+}
+
+.project-header {
+    text-align: center;
+    text-decoration: underline;
+}
+
+.project h3{
+ margin-top: 20px;
+ margin-bottom: 30px;
+}
+
+.arrow-link {
+    display: flex;
+    color: grey;
+    background-color: transparent;
+    text-transform: uppercase;
+    font-weight: bold;
+    cursor: pointer;
+    align-items: center;
+    letter-spacing: 1px;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.arrow-link > .arrow {
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid grey;
+    border-bottom: 2px solid grey;
+    position: relative;
+    transform: rotate(-45deg);
+    margin-left: 3px;
+    transition: all .3s ease;
+}
+
+.arrow-link:hover{
+    color: rgb(218, 207, 207);
+}
+
+.image-wrapper img{
+    transform: scale(1.1);
+    transition: all 0.5s ease;
+}
+
+.project .image-wrapper{
+    border-radius: 10%;
+    overflow: hidden;
+    height: 450px;
+    width: 340px;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+.project:hover .image-wrapper img{
+    transform: scale(1);
+}
+
+.email{
+    color: #000000;
+}
+
+.email:hover{
+    color: rgb(218, 207, 207);
+}
+
+.contact-header{
+    margin-top: -120px;
+}
 
