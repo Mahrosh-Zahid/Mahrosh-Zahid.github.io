@@ -35,6 +35,7 @@
 
 #footer {
     text-align: center;
+    background-color: rgb(235, 227, 227);
 }
 
 .about-text{
@@ -193,7 +194,7 @@ span{
     font-style: oblique;
 }
 
-.accordion-header, .accordion-button, .accordion-body, .about-text, .about-paragraph, .hero_title, .hero_desc, .nav-link, .navbar-brand, .project-header, h3{
+.accordion-header, .accordion-button, .accordion-body, .about-text, .about-paragraph, .hero_title, .hero_desc, .nav-link, .navbar-brand, .project-header, h3, .form-label{
     font-family: "Work Sans", sans-serif;
     font-optical-sizing: auto;
 }
@@ -297,6 +298,51 @@ span{
 }
 
 .contact-header{
-    margin-top: -120px;
+    margin-top: -100px;
+}
+
+.contact-header, .contact-subheader, .contact-text {
+    padding: 10px;
+    font-family: "Work Sans", sans-serif;
+    font-optical-sizing: auto;
+}
+
+.contact-text-bubble{
+    margin-left: -10px;
+}
+
+.mail-link{
+    color: #000000;
+}
+
+.mail-link:hover{
+    color: rgb(218, 207, 207);
+}
+
+.fa{
+    color: black;
+}
+
+.btn {
+    background-color: rgb(0, 0, 0);
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: rgb(218, 207, 207);
+ }
+
+ .form-label {
+    font-weight: bold;
+    color: #333333;
+  }
+
+  
+.contact-subheader{
+    font-size: 22px;
 }
 
