@@ -301,7 +301,7 @@ span{
     margin-top: -100px;
 }
 
-.contact-header, .contact-subheader, .contact-text {
+.contact-header, .contact-subheader, .contact-text, .btn {
     padding: 10px;
     font-family: "Work Sans", sans-serif;
     font-optical-sizing: auto;
