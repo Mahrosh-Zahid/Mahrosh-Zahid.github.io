@@ -258,15 +258,41 @@
 
     
     <section id="contact">
+      <div class="container">
+        <div class="contact-text-bubble">
         <h1 class="contact-header">Contact me!</h1>
-        <h4 class="contact-subheader">Have any questions? Fill out the form and I will get a response to you soon!</h4>
-        <p class="contact-p">If urgent, please email me directly.</p>
-        <a class="email" href="mailto:mahrosh.zahid@torontomu.ca" target="_blank">mahrosh.zahid@torontomu.ca</a>
-        
-        <form action ="" class="contact-left">
-            
+        <h3 class="contact-subheader">Have any questions? Fill out the form and I’ll get you a response soon!</h3>
+        <p class="contact-text">Please use this form or you can email me directly if your message is urgent.<br><br> 
+        <a class="mail-link" href="mailto:mahrosh.zahid@torontomu.ca" target="_blank">mahrosh.zahid@torontomu.ca</a></p>
+        </div>
+        <form class ="row g-3">
+            <div class= "col-md-6">
+                <label for="firstName" class="form-label">First Name (required)</label>
+                <input type="text" class="form-control" id="firstName" required>
+            </div>
+            <div class= "col-md-6">
+                <label for="lastName" class="form-label">Last Name (required)</label>
+                <input type="text" class="form-control" id="lastName" required>
+            </div>
+            <div class="col-md-6">
+                <label for="emailadd" class="form-label">Email (required)</label>
+                <input type="email" class="form-control" id="emailadd" required>
+            </div>
+            <div class="col-md-6">
+                <label for="phone" class="form-label">Phone Number (optional)</label>
+                <input type="text" class="form-control" id="phone" placeholder="+1 (XXX)-XXX-XXX">
+            </div>
+            <div class="col-md-12">
+                <label for="message" class="form-label">Message (required)</label>
+                <textarea class="form-control" id="message" row="3" required placeholder="please enter your message"></textarea>
+            </div>
+            <div class="col-md-12">
+                <button type="submit" class="btn">Submit</button>
+                <button type="reset" class="btn">Reset/Clear</button>
+            </div>
         </form>
-        
+      </div>
+
 
     </section>
 
@@ -276,6 +302,7 @@
         <div class="container-fluid">
             <!-- social media icons -->
             <div class="social-icons mt-4">
+                <a href="mailto:mahrosh.zahid@torontomu.ca" target="_blank"><i class="fa fa-envelope"></i></a>
                 <a href="https://www.linkedin.com/in/mahroshzahid" target="_blank"><i class="fab fa-linkedin"></i></a>
                 <a href="https://github.com/MahroshZahid" target="_blank"><i class="fab fa-github-square"></i></a>
             </div>
