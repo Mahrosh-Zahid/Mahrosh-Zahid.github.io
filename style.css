@@ -2,7 +2,6 @@
     height:100vh;
     background: url('images/homeimg.jpg');
     background-size:cover;
-    position:relative;
 }
 
 .hero_title {
@@ -53,8 +52,8 @@
 .bgimage-cv {
     background-image: url('images/homeimg.jpg'); 
     background-size:cover;
-    position:relative;
     height:100vh;
+    position: relative;
 }
 
 .linkcv{
@@ -62,7 +61,6 @@
     font-family: "Work Sans", sans-serif;
 }
 
-    
 .progress{
     background-color: white;
     justify-content: flex-start;
@@ -216,10 +214,6 @@ span{
     margin-left: -30px; 
 }
 
-.courses-text{
-
-}
-
 #about{
     margin-top: -50px;
     margin-bottom: -20px;
@@ -346,3 +340,12 @@ span{
     font-size: 22px;
 }
 
+.accordion-collapse {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+#resume{
+    padding-bottom: 1050px;
+    margin-bottom: 20px;
+}
