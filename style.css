@@ -46,6 +46,7 @@
     text-decoration: underline;
     text-align: center;
     position: relative;
+
 }
 
 
@@ -420,4 +421,8 @@ span{
 
 .btn_text:nth-child(3){
     font-size: 2em;
+}
+
+.container-project {
+    padding-left: 100px;  
 }
