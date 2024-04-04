@@ -308,6 +308,11 @@ span{
     margin-left: -10px;
 }
 
+.contact-text{
+    font-weight: none;
+
+}
+
 .mail-link{
     color: #000000;
 }
