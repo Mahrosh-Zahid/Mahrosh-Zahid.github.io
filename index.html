@@ -28,7 +28,7 @@
     <!-- navbar with responsiveness-->
     <nav class="navbar navbar-expand-lg fixed-top navbarScroll">
         <div class="container">
-            <a class="navbar-brand" href="#">mahrosh zahid</a>
+            <a class="navbar-brand" href="#home">mahrosh zahid</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -68,9 +68,9 @@
     
     <div class="text-accessibility">
         <div class="buttons">
-            <span class="btn_text" onclick="changeFontSize('')" >A</span>
-            <span class="btn_text" onclick="changeFontSize('1.5em')">A</span>
-            <span class="btn_text" onclick="changeFontSize('2em')">A</span>
+            <span class="btn_text" role ="button" onclick="changeFontSize('')" >A</span>
+            <span class="btn_text" role ="button" onclick="changeFontSize('1.5em')">A</span>
+            <span class="btn_text" role ="button" onclick="changeFontSize('2em')">A</span>
           </div>          
     </div>
         <!-- added text increase widget to provide users with the flexibility to adjust font sizes according to their preferences, ensuring improved accessibility. -->
@@ -329,10 +329,11 @@
         <div class="container-fluid">
             <!-- social media icons -->
             <div class="social-icons mt-4">
-                <a href="mailto:mahrosh.zahid@torontomu.ca" target="_blank"><i class="fa fa-envelope"></i></a>
-                <a href="https://www.linkedin.com/in/mahroshzahid" target="_blank"><i class="fab fa-linkedin"></i></a>
-                <a href="https://github.com/MahroshZahid" target="_blank"><i class="fab fa-github-square"></i></a>
+                <a href="mailto:mahrosh.zahid@torontomu.ca" target="_blank" aria-label="Email Mahrosh Zahid"><i class="fa fa-envelope"></i></a>
+                <a href="https://www.linkedin.com/in/mahroshzahid" target="_blank" aria-label="Mahrosh Zahid on LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/MahroshZahid" target="_blank" aria-label="Mahrosh Zahid on GitHub"><i class="fab fa-github-square"></i></a>
             </div>
+            
         </div>
     </footer>
 
