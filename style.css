@@ -247,7 +247,7 @@ span{
 
 .arrow-link {
     display: flex;
-    color: grey;
+    color: black;
     background-color: transparent;
     text-transform: uppercase;
     font-weight: bold;
