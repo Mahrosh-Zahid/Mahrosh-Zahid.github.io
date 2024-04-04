@@ -1,0 +1,298 @@
+install.packages("dplyr")
+install.packages("RWeka")
+install.packages("partykit")
+install.packages("caret")
+install.packages("party")
+install.packages("e1071", dependencies = TRUE)
+install.packages("rpart")
+install.packages("class")
+
+  
+library(class)
+library(rpart)
+library(partykit)
+library(dplyr)
+library(RWeka)
+library(caret)
+library(e1071)
+library(party)
+
+bankdata <- read.csv("bank.csv", sep=";")
+View(bankdata)
+
+# Statistics
+
+# Dimension and summary of data set
+dim(bankdata)
+summary(bankdata)
+
+# Statistics of unknown entries (rows containing "unknown", count of rows, 
+# percentage of unknown in data set)
+rows_containing_unknown <- filter_all(bankdata, any_vars(. == "unknown"))
+rows_containing_unknown
+
+rows_containing_unknown_count <- nrow(rows_containing_unknown)
+rows_containing_unknown_count
+
+unknown_entries_percentage <- rows_containing_unknown_count / nrow(bankdata)
+unknown_entries_percentage * 100 # Convert to percentage
+
+# Boxplot of numeric variables
+boxplot(bankdata$age, ylab="Age")
+boxplot(bankdata$day, ylab="Day")
+boxplot(bankdata$duration, ylab="Duration")
+
+# Reprocessing the data
+bankdata <- subset(bankdata, select = -poutcome)
+bankdata[bankdata=="unknown"] <- NA
+bankdata <- na.omit(bankdata)
+summary(bankdata)
+
+# Prepare the training and test data set
+set.seed(123)
+myIndex <- sample(1:nrow(bankdata), 0.8*nrow(bankdata))
+train_data <- bankdata[myIndex, ]
+test_data <- bankdata[-myIndex, ]
+
+# Train the CTree model
+ctree_model <- rpart(y ~ ., data = train_data, method = "class")
+
+# Make predictions on the test dataset
+ctree_pred <- predict(ctree_model, test_data, type = "class")
+
+# Convert predictions to factors
+ctree_pred <- factor(ctree_pred)
+
+# Convert test_data$y to factors
+test_data_ctree <- factor(test_data$y)
+
+# Ensure both factors have the same levels
+all_levels <- union(levels(ctree_pred), levels(test_data_ctree))
+
+ctree_pred <- factor(ctree_pred, levels = all_levels)
+test_data_ctree <- factor(test_data_ctree, levels = all_levels)
+
+# Create confusion matrix
+ctree_cm <- caret::confusionMatrix(ctree_pred, test_data_ctree)
+
+# Gather true positives (TP), false positives (FP), false negatives (FN), true negatives (TN) 
+TP <- ctree_cm$table["yes", "yes"] 
+FP <- ctree_cm$table["yes", "no"] 
+FN <- ctree_cm$table["no", "yes"] 
+TN <- ctree_cm$table["no", "no"]
+
+# Calculate accuracy 
+accuracy_ctree <- (TP + TN) / sum(ctree_cm$table)
+
+# Calculate error rate
+error_rate_ctree <- (FP + FN) / sum(ctree_cm$table)
+
+# Calculate precision 
+precision_ctree <- TP / (TP + FP)
+
+# Calculate recall 
+recall_ctree <- TP / (TP + FN)
+
+# Calculate F1 score 
+f1_score_ctree <- 2 * precision_ctree * recall_ctree / (precision_ctree + recall_ctree)
+
+print(accuracy_ctree) 
+print(error_rate_ctree) 
+print(precision_ctree) 
+print(recall_ctree) 
+print(f1_score_ctree)
+
+# J48 classification and confusion matrix
+
+# Factorize train_data and test_data
+train_data_factor <- train_data
+train_data_factor[] <- lapply(train_data_factor, factor)
+
+test_data_factor <- test_data
+test_data_factor[] <- lapply(test_data_factor, factor)
+
+J48Tree_Bank <- rpart(y ~ ., data = train_data, method = "class")
+pred_J48Tree_Bank <- predict(J48Tree_Bank, newdata = test_data, type = "class")
+actual_J48Tree_Bank <- test_data$y
+
+j48_matrix_table <- table(pred_J48Tree_Bank, actual_J48Tree_Bank)
+j48_matrix_table
+
+# Gather true positives (TP), false positives (FP), false negatives (FN), true negatives (TN)
+TP <- j48_matrix_table["yes", "yes"]
+FP <- j48_matrix_table["yes", "no"]
+FN <- j48_matrix_table["no", "yes"]
+TN <- j48_matrix_table["no", "no"]
+
+# Calculate accuracy
+accuracy_j48 <- (TP + TN) / sum(j48_matrix_table)
+
+# Calculate error rate
+error_rate_j48 <- (FP + FN) / sum(j48_matrix_table)
+
+# Calculate precision
+precision_j48 <- TP / (TP + FP)
+
+# Calculate recall
+recall_j48 <- TP / (TP + FN)
+
+# Calculate F1 score
+f1_score_j48 <- 2 * precision_j48 * recall_j48 / (precision_j48 + recall_j48)
+
+print(accuracy_j48)
+print(error_rate_j48)
+print(precision_j48)
+print(recall_j48)
+print(f1_score_j48)
+
+#INSERT LINEAR CLASSIFIER CODE
+
+train_data_logistic <- train_data
+test_data_logistic <- test_data
+
+# Convert 'yes' and 'no' to 1 and 0 for logistic regression
+train_data_logistic$y <- ifelse(train_data_logistic$y == "yes", 1, 0)
+test_data_logistic$y <- ifelse(test_data_logistic$y == "yes", 1, 0)
+
+# Run logistic regression on train_data_logistic and test_data_logistic
+linear_clf <- glm(y ~ ., data = train_data_logistic, family = 'binomial')
+
+pred_val <- predict(linear_clf, test_data_logistic)
+
+# Convert predicted probabilities to classes
+pred <- ifelse(pred_val > 1.5, 'yes', 'no')
+
+# Ensure both pred and actual are factors with the same levels
+pred <- factor(pred, levels = c("no", "yes"))
+actual <- factor(test_data_logistic$y, levels = c(0, 1), labels = c("no", "yes"))
+
+# Create confusion matrix
+conf_matrix <- table(actual, pred)
+conf_matrix
+
+# Gather true positives (TP), false positives (FP), false negatives (FN), true negatives (TN) 
+TP <- conf_matrix["yes", "yes"] 
+FP <- conf_matrix["yes", "no"] 
+FN <- conf_matrix["no", "yes"] 
+TN <- conf_matrix["no", "no"]
+
+# Calculate accuracy 
+accuracy_linear <- (TP + TN) / sum(conf_matrix)
+
+# Calculate error rate
+error_rate_linear <- (FP + FN) / sum(conf_matrix)
+
+# Calculate precision 
+precision_linear <- TP / (TP + FP)
+
+# Calculate recall 
+recall_linear <- TP / (TP + FN)
+
+# Calculate F1 score 
+f1_score_linear <- 2 * precision_linear * recall_linear / (precision_linear + recall_linear)
+
+print(accuracy_linear) 
+print(error_rate_linear) 
+print(precision_linear) 
+print(recall_linear) 
+print(f1_score_linear)
+
+
+#INSERT KNN CLASSIFIER CODE 
+
+# Prepare the data for the K-NN model
+train_x <- as.data.frame(lapply(train_data_factor[, -ncol(train_data_factor)], as.numeric))
+test_x <- as.data.frame(lapply(test_data_factor[, -ncol(test_data_factor)], as.numeric))
+train_y <- train_data_factor$y
+test_y <- test_data_factor$y
+
+# Convert factor to numeric for K-NN
+train_y <- as.numeric(factor(train_y, levels = c("no", "yes")))
+test_y <- as.numeric(factor(test_y, levels = c("no", "yes")))
+
+# Running the K-NN model
+# Choosing K = 5 as a starting point
+set.seed(123)
+knn_pred <- knn(train = train_x, test = test_x, cl = train_y, k = 5)
+
+# Evaluate the model
+conf_matrix_table <- table(test_y, knn_pred)
+print(conf_matrix_table)
+
+#changing labels for readbility
+conf_matrix_table <- table(factor(test_y, levels = c("1", "2"), labels = c("no", "yes")), 
+                           factor(knn_pred, levels = c("1", "2"), labels = c("no", "yes")))
+
+
+# Gather true positives (TP), false positives (FP), false negatives (FN), true negatives (TN) 
+TP <- conf_matrix_table["yes", "yes"] 
+FP <- conf_matrix_table["no", "yes"] 
+FN <- conf_matrix_table["yes", "no"] 
+TN <- conf_matrix_table["no", "no"]
+
+# Calculate accuracy 
+accuracy_knn <- (TP + TN) / sum(conf_matrix_table)
+
+# Calculate error rate
+error_rate_knn <- (FP + FN) / sum(conf_matrix_table)
+
+# Calculate precision 
+precision_knn <- TP / (TP + FP)
+
+# Calculate recall 
+recall_knn <- TP / (TP + FN)
+
+# Calculate F1 score 
+f1_score_knn <- 2 * precision * recall / (precision + recall)
+
+print(accuracy_knn) 
+print(error_rate_knn) 
+print(precision_knn) 
+print(recall_knn) 
+print(f1_score_knn)
+
+# Bar chart for Accuracy
+clfs <- c("CTree", "J48", "Linear", "Knn")
+Precision= c(accuracy_ctree, accuracy_j48 ,accuracy_linear , accuracy_knn) #Giving precision axis values
+barplot(names.arg = clfs,
+        Precision*100,
+        main = "Accuracy of classifiers",
+        xlab = "Percentage of Accuracy",
+        ylab= 'Classifier')
+
+# Bar chart for Error Rate
+clfs <- c("CTree", "J48", "Linear", "Knn")
+Precision= c(error_rate_ctree ,error_rate_j48, error_rate_linear ,error_rate_knn) #Giving precision axis values
+barplot(names.arg = clfs,
+        Precision*100,
+        main = "Error rate of classifiers",
+        xlab = "Percentage of error rate",
+        ylab= 'Classifier')
+
+# Bar chart for Precision
+clfs <- c("CTree", "J48", "Linear", "Knn")
+Precision= c(precision_ctree,precision_j48 ,precision_linear ,precision_knn) #Giving precision axis values
+barplot(names.arg = clfs,
+        Precision*100,
+        main = "precision of classifiers",
+        xlab = "Percentage of Precision",
+        ylab= 'Classifier')
+
+# Bar chart for recall
+clfs <- c("CTree", "J48", "Linear", "Knn")
+Precision= c(recall_ctree, recall_j48 ,recall_linear ,recall_knn) #Giving precision axis values
+barplot(names.arg = clfs,
+        Precision*100,
+        main = "Recall of classifiers",
+        xlab = "Percentage of recall",
+        ylab= 'Classifier')
+
+# Bar chart for F1-score
+clfs <- c("CTree", "J48", "Linear", "Knn")
+Precision= c(f1_score_ctree,f1_score_j48 ,f1_score_linear ,f1_score_knn) #Giving precision axis values
+barplot(names.arg = clfs,
+        Precision*100,
+        main = "f1 score of classifiers",
+        xlab = "Percentage of f1 score",
+        ylab= 'Classifier')
+
