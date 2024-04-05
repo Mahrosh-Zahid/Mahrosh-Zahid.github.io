@@ -298,7 +298,7 @@ span{
     margin-top: -100px;
 }
 
-.contact-header, .contact-subheader, .contact-text, .btn {
+.technical-text, .contact-header, .contact-subheader, .contact-text, .btn {
     padding: 10px;
     font-family: "Work Sans", sans-serif;
     font-optical-sizing: auto;
@@ -431,3 +431,9 @@ span{
 .container-project {
     padding-left: 80px;  
 }
+
+.about-text, .project-header, .cv-text, .contact-header{
+    font-size: 35px;
+    text-decoration: underline;
+}
+
