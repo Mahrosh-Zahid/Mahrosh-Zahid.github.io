@@ -31,7 +31,7 @@ function submitForm() {
     var msg = localStorage.setItem("message", message);
 
     //confirmation message
-    alert("Thank you for your submission! Please expect a response within 2-3 days :)")
+    alert("Thank you for filling out the form! Please expect a response within 2-3 days :)")
 }
 
 function changeFontSize(fontSize) {
