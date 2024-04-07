@@ -437,3 +437,14 @@ span{
     text-decoration: underline;
 }
 
+.project-field{
+    text-align: center;
+    margin-right: 58px;
+    margin-top: -15px;
+    margin-bottom: 20px;
+    font-family: "Work Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-style: oblique;
+
+}
+
